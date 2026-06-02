@@ -2,7 +2,6 @@ package com.sofagames.backend.game.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +11,6 @@ import java.util.Set;
 @NoArgsConstructor @AllArgsConstructor
 @Builder
 public class Genre {
-
     @Id
     private Integer id;
 
@@ -22,4 +20,7 @@ public class Genre {
     @ManyToMany(mappedBy = "genres")
     @Builder.Default
     private Set<Game> games = new HashSet<>();
+
+    public Genre(Integer id, String s) {
+    }
 }

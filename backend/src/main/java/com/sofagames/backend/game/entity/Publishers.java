@@ -23,6 +23,4 @@ public class Publishers {
     @Builder.Default
     private Set<Game> games = new HashSet<>();
 
-    public Publishers(Object o, String pubName) {
-    }
 }

@@ -15,9 +15,6 @@ public class Screenshot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "game_id", nullable = false)
-    private Long gameId;
-
     @Column(name = "steam_id", nullable = false)
     private Integer steamId;
 
@@ -32,7 +29,7 @@ public class Screenshot {
     private Integer displayOrder = 0;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_id", insertable = false, updatable = false)
+    @JoinColumn(name = "game_id")
     @JsonIgnore
     private Game game;
 }

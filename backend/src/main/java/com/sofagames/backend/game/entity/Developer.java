@@ -2,7 +2,6 @@ package com.sofagames.backend.game.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,4 +22,6 @@ public class Developer {
     @ManyToMany(mappedBy = "developers")
     @Builder.Default
     private Set<Game> games = new HashSet<>();
+
+
 }

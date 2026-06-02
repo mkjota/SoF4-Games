@@ -2,10 +2,7 @@ package com.sofagames.backend.game.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,8 +23,14 @@ public class Game {
     @Column(nullable = false)
     private String name;
 
+    @Column(name = "collection")
+    private String collection;
+
     @Column(name = "short_description", columnDefinition = "TEXT")
     private String shortDescription;
+
+    @Column(name = "detailed_description", columnDefinition = "TEXT")
+    private String detailedDescription;
 
     @Column(name = "header_image", columnDefinition = "TEXT")
     private String headerImage;
@@ -44,6 +47,13 @@ public class Game {
     @Builder.Default
     private Boolean isFree = false;
 
+    @Column(name = "coming_soon")
+    @Builder.Default
+    private Boolean comingSoon = false;
+
+    @Column(name = "release_date")
+    private LocalDate releaseDate;
+
     @Column(name = "price_initial", nullable = false)
     @Builder.Default
     private Integer priceInitial = 0;
@@ -52,21 +62,14 @@ public class Game {
     @Builder.Default
     private Integer priceFinal = 0;
 
-    @Column(name = "discount_percent", nullable = false)
+    @Column(name = "discount_percent")
     @Builder.Default
     private Integer discountPercent = 0;
 
+    @Column(name = "currency")
     private String currency;
 
-    @Column(name = "release_date")
-    private LocalDate releaseDate;
-
-    @Column(name = "coming_soon", nullable = false)
-    @Builder.Default
-    private Boolean comingSoon = false;
-
-    @Column(name = "required_age", nullable = false)
-    @Builder.Default
+    @Column(name = "required_age")
     private Integer requiredAge = 0;
 
     @Column(name = "controller_support")
@@ -75,22 +78,17 @@ public class Game {
     @Column(name = "supported_languages", columnDefinition = "TEXT")
     private String supportedLanguages;
 
-    @Column(name = "recommendations_total", nullable = false)
-    @Builder.Default
+    @Column(name = "recommendations_total")
     private Integer recommendationsTotal = 0;
 
-    @Column(name = "achievements_total", nullable = false)
-    @Builder.Default
+    @Column(name = "metacritic_score")
+    private Integer metacriticScore = 0;
+
+    @Column(name = "achievements_total")
     private Integer achievementsTotal = 0;
 
     @Column(name = "system_requirements", columnDefinition = "TEXT")
     private String systemRequirements;
-
-    @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private ZonedDateTime createdAt;
-
-    // ==================== RELACIONES ====================
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "game_genres",
@@ -118,7 +116,7 @@ public class Game {
             joinColumns = @JoinColumn(name = "game_id"),
             inverseJoinColumns = @JoinColumn(name = "publisher_id"))
     @Builder.Default
-    private Set<Publisher> publishers = new HashSet<>();
+    private Set<Publishers> publishers = new HashSet<>();
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     @OrderBy("displayOrder ASC")
