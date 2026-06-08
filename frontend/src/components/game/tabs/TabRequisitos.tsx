@@ -40,14 +40,14 @@ function ReqBlock({ title, text }: { title: string; text: string }) {
 
 export default function TabRequisitos({ game }: { game: GameDetail }) {
   const requirements = game.systemRequirements ? JSON.parse(game.systemRequirements) : null;
-
-  if (!requirements) {
+  
+  if (!plats.length) {
     return <p className="py-5" style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>No hay requisitos disponibles.</p>
   }
 
   return (
     <div className="pb-5" style={{ paddingTop: '1.5rem' }}>
-      {Object.entries(requirements).map(([plat, reqs]: [string, any]) => (
+      {plats.map(([plat, reqs]) => (
         <div key={plat} className="mb-6">
           <p className="uppercase tracking-widest mb-3" style={{ color: 'var(--color-accent)', fontFamily: 'var(--font-title)', fontSize: '0.75rem' }}>
             {plat === 'pc' ? 'Windows' : plat === 'mac' ? 'macOS' : plat === 'linux' ? 'Linux' : plat}
